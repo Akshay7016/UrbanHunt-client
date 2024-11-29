@@ -84,6 +84,8 @@ nav {
     }
 
     .menu {
+      // position: absolute is positioned relative to the nearest positioned ancestor.
+      // If an absolute positioned element has no positioned ancestor, it uses the document body.
       position: absolute;
       top: 0;
       right: -50%;
