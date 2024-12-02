@@ -1,4 +1,4 @@
-@import "responsive.scss";
+@import 'responsive.scss';
 
 .homePage {
   display: flex;
@@ -19,7 +19,7 @@
         padding-right: 0;
       }
 
-      @include sm{
+      @include sm {
         justify-content: flex-start;
       }
 

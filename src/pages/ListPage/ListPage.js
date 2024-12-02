@@ -1,7 +1,5 @@
-import "./ListPage.scss";
+import './ListPage.scss';
 
 export const ListPage = () => {
-    return (
-        <div>ListPage</div>
-    )
-}
+  return <div>ListPage</div>;
+};

@@ -1,7 +1,5 @@
-import "./Login.scss";
+import './Login.scss';
 
 export const Login = () => {
-    return (
-        <div>Login</div>
-    )
-}
+  return <div>Login</div>;
+};
