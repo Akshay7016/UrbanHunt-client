@@ -1,7 +1,23 @@
+@import 'responsive.scss';
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    border: 1px solid #ccc;
+    background-color: #999999;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    border: 1px solid rgb(179, 179, 179);
+  }
 }
 
 a {
@@ -12,4 +28,8 @@ a {
 body {
   font-family: 'Lato', sans-serif;
   overflow: hidden;
+
+  @include sm {
+    overflow-y: auto;
+  }
 }
