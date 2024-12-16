@@ -1,5 +1,3 @@
-@import 'responsive.scss';
-
 * {
   padding: 0;
   margin: 0;
@@ -28,8 +26,4 @@ a {
 body {
   font-family: 'Lato', sans-serif;
   overflow: hidden;
-
-  @include sm {
-    overflow-y: auto;
-  }
 }
