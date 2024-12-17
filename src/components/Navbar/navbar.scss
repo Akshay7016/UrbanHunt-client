@@ -68,13 +68,54 @@ nav {
       background-color: #fece51;
     }
 
+    .user {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+
+      @include sm {
+        span {
+          display: none;
+        }
+      }
+
+      .profile {
+        padding: 12px 24px;
+        background-color: #fece51;
+        cursor: pointer;
+        position: relative;
+
+        .notification {
+          position: absolute;
+          right: -8px;
+          top: -8px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 26px;
+          height: 26px;
+          background-color: red;
+          color: white;
+          border-radius: 50%;
+        }
+      }
+    }
+
     .menuIcon {
       display: none;
       z-index: 999;
 
       img {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         cursor: pointer;
       }
 
