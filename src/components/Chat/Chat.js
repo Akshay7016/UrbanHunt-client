@@ -5,15 +5,15 @@ import { userData } from 'lib/dummyData';
 import './Chat.scss';
 
 export const Chat = () => {
-  const [chat, setChat] = useState(true);
+  const [chat, setChat] = useState(null);
   const { img, name } = userData;
 
   return (
     <div className="chat">
       <div className="messages">
         <h1>Messages</h1>
-        {[1, 2, 3, 4, 5].map(() => (
-          <div className="message">
+        {[1, 2, 3, 4, 5].map((item) => (
+          <div className="message" onClick={() => setChat(item)}>
             <img src={img} alt="user-image" />
             <span>{name}</span>
             <p>Some message.....</p>
