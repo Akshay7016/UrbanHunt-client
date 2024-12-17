@@ -6,14 +6,15 @@
 
   .textContainer {
     flex: 3;
+    overflow-y: scroll;
 
     .wrapper {
       height: 100%;
       padding-right: 100px;
+      padding-top: 10px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 34px;
+      gap: 36px;
 
       @include md {
         padding-right: 0;
@@ -54,22 +55,13 @@
   .imageContainer {
     flex: 2;
     background-color: #fcf5f3;
-    position: relative;
-    display: flex;
-    align-items: center;
 
     @include md {
       display: none;
     }
 
     img {
-      width: 115%;
-      position: absolute;
-      right: 0;
-
-      @include lg {
-        width: 105%;
-      }
+      width: 100%;
     }
   }
 }

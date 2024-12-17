@@ -9,11 +9,9 @@ export const HomePage = () => {
         <div className="wrapper">
           <h1 className="title">Find Real Estate & Get Your Dream Place</h1>
           <p>
-            Discover your ideal home or investment property with ease. Our
-            platform offers detailed listings, high-quality images, and advanced
-            search filters to help you find the perfect place effortlessly.
-            Start your journey today and secure your dream property with just a
-            few clicks.
+            Discover your ideal home or investment property with ease. Start
+            your journey today and secure your dream property with just a few
+            clicks.
           </p>
           <SearchBar />
           <div className="boxes">
