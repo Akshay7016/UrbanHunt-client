@@ -128,19 +128,18 @@ nav {
       // position: absolute is positioned relative to the nearest positioned ancestor.
       // If an absolute positioned element has no positioned ancestor, it uses the document body.
       position: absolute;
-      top: 0;
-      right: -50%;
       background-color: black;
       color: white;
       width: 50%;
       height: 100%;
-      transition: all 1s ease;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
 
       &.active {
+        display: flex;
+        top: 0;
         right: 0;
       }
 
