@@ -17,11 +17,7 @@
       gap: 36px;
 
       @include md {
-        padding-right: 0;
-      }
-
-      @include sm {
-        justify-content: flex-start;
+        padding-right: 10px;
       }
 
       .title {
