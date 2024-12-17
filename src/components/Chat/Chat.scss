@@ -92,11 +92,21 @@
           text-align: right;
         }
 
+        p {
+          @include sm {
+            font-size: 11px;
+          }
+        }
+
         span {
           background-color: #f7c14b85;
           font-size: 12px;
           padding: 2px;
           border-radius: 5px;
+
+          @include md {
+            font-size: 10px;
+          }
         }
       }
     }
