@@ -1,3 +1,5 @@
+@import 'responsive.scss';
+
 .chat {
   height: 100%;
   display: flex;
@@ -78,8 +80,12 @@
       flex-direction: column;
       gap: 20px;
 
+      @include md {
+        height: 300px;
+      }
+
       .chatMessage {
-        width: 50%;
+        width: 80%;
 
         &.own {
           align-self: flex-end;
