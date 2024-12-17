@@ -41,7 +41,7 @@ export const Navbar = () => {
         )}
         <div className="menuIcon">
           <img
-            src="/images/menu.png"
+            src={open ? '/images/close.png' : '/images/menu.png'}
             alt="menuIcon"
             onClick={() => setOpen(!open)}
           />
