@@ -11,13 +11,17 @@
     .wrapper {
       height: 100%;
       padding-right: 100px;
-      padding-top: 10px;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 36px;
 
       @include md {
         padding-right: 10px;
+      }
+
+      @include sm {
+        justify-content: flex-start;
       }
 
       .title {
@@ -51,13 +55,16 @@
   .imageContainer {
     flex: 2;
     background-color: #fcf5f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @include md {
       display: none;
     }
 
     img {
-      width: 97%;
+      width: 100%;
     }
   }
 }
