@@ -24,6 +24,10 @@
       @include md {
         padding-right: 20px;
       }
+
+      @include sm {
+        padding-right: 0px;
+      }
     }
   }
   .mapContainer {
