@@ -10,18 +10,18 @@ export const Chat = () => {
 
   return (
     <div className="chat">
-      <div className="messages">
-        <h1>Messages</h1>
-        {[1, 2, 3, 4, 5].map((item) => (
-          <div className="message" onClick={() => setChat(item)}>
-            <img src={img} alt="user-image" />
-            <span>{name}</span>
-            <p>Some message.....</p>
-          </div>
-        ))}
-      </div>
-
-      {chat && (
+      {!chat ? (
+        <div className="messages">
+          <h1>Messages</h1>
+          {[1, 2, 3, 4, 5].map((item) => (
+            <div className="message" onClick={() => setChat(item)}>
+              <img src={img} alt="user-image" />
+              <span>{name}</span>
+              <p>Some message.....</p>
+            </div>
+          ))}
+        </div>
+      ) : (
         <div className="chatBox">
           <div className="top">
             <div className="user">
