@@ -79,6 +79,12 @@ nav {
         object-fit: cover;
         border-radius: 50%;
         margin-right: 20px;
+        pointer-events: none;
+
+        @include sm {
+          cursor: pointer;
+          pointer-events: initial;
+        }
       }
 
       @include sm {

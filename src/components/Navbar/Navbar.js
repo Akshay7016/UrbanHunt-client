@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { userData } from 'lib/dummyData';
 
 import './navbar.scss';
 
 export const Navbar = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const user = true;
 
@@ -24,7 +25,11 @@ export const Navbar = () => {
       <div className="right">
         {user ? (
           <div className="user">
-            <img src={userData.img} alt="user-image" />
+            <img
+              src={userData.img}
+              alt="user-image"
+              onClick={() => navigate('/profile')}
+            />
             <span>{userData.name}</span>
             <Link to="/profile" className="profile">
               <div className="notification">3</div>
