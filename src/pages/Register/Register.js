@@ -28,10 +28,7 @@ export const Register = () => {
               placeholder="Username"
             />
             {errors?.username?.message && (
-              <span>
-                {errors?.username?.message}
-                <sup>*</sup>
-              </span>
+              <span>{errors?.username?.message}</span>
             )}
           </div>
 
@@ -47,12 +44,7 @@ export const Register = () => {
               })}
               placeholder="Email"
             />
-            {errors?.email?.message && (
-              <span>
-                {errors?.email?.message}
-                <sup>*</sup>
-              </span>
-            )}
+            {errors?.email?.message && <span>{errors?.email?.message}</span>}
           </div>
 
           <div className="inputFieldContainer">
@@ -64,10 +56,7 @@ export const Register = () => {
               placeholder="Password"
             />
             {errors?.password?.message && (
-              <span>
-                {errors?.password?.message}
-                <sup>*</sup>
-              </span>
+              <span>{errors?.password?.message}</span>
             )}
           </div>
 
