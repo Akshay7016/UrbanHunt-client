@@ -5,6 +5,7 @@ import { ListPage } from 'pages/ListPage/ListPage';
 import { Layout } from 'pages/Layout/Layout';
 import { SinglePage } from 'pages/SinglePage/SinglePage';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
+import { Register } from 'pages/Register/Register';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const App = () => {
         {
           path: '/profile',
           element: <ProfilePage />,
+        },
+        {
+          path: '/register',
+          element: <Register />,
         },
       ],
     },

@@ -1,0 +1,82 @@
+@import 'responsive.scss';
+
+.registerPage {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+
+  .formContainer {
+    flex: 3;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: scroll;
+
+    @include md {
+      align-items: flex-start;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .inputFieldContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        input {
+          width: 100%;
+          padding: 20px;
+          border: 1px solid gray;
+          border-radius: 5px;
+        }
+
+        span {
+          color: red;
+          font-size: 12px;
+        }
+      }
+
+      button {
+        padding: 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: teal;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:disabled {
+          background-color: #bed9d8;
+          cursor: not-allowed;
+        }
+      }
+
+      a {
+        font-size: 14px;
+        color: gray;
+        border-bottom: 1px solid gray;
+        width: max-content;
+      }
+    }
+  }
+
+  .imageConatiner {
+    flex: 2;
+    background-color: #fcf5f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include md {
+      display: none;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
