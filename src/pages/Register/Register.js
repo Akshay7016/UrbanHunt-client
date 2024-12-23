@@ -1,8 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import { apiRequest } from 'services/apiRequest';
-import { authEndpoints } from 'services/apis';
+import { apiRequest } from 'lib/apiRequest';
 
 import './Register.scss';
 
@@ -18,7 +17,7 @@ export const Register = () => {
 
   const submitHandler = async (data) => {
     try {
-      await apiRequest.post(authEndpoints.REGISTER_API, data);
+      await apiRequest.post('/auth/register', data);
       reset();
       navigate('/login');
     } catch (error) {
