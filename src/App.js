@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import { HomePage } from 'pages/HomePage/HomePage';
 import { ListPage } from 'pages/ListPage/ListPage';
@@ -6,6 +7,7 @@ import { Layout } from 'pages/Layout/Layout';
 import { SinglePage } from 'pages/SinglePage/SinglePage';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
 import { Register } from 'pages/Register/Register';
+import { Login } from 'pages/Login/Login';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -30,6 +32,10 @@ export const App = () => {
           element: <ProfilePage />,
         },
         {
+          path: '/login',
+          element: <Login />,
+        },
+        {
           path: '/register',
           element: <Register />,
         },
@@ -37,5 +43,10 @@ export const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
+  );
 };

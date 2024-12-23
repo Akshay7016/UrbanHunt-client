@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 
 import { apiRequest } from 'lib/apiRequest';
 
@@ -13,7 +14,6 @@ export const Register = () => {
     formState: { errors },
     handleSubmit,
     reset,
-    setError,
   } = useForm();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -21,13 +21,11 @@ export const Register = () => {
     try {
       setIsLoading(true);
       await apiRequest.post('/auth/register', data);
+      toast.success('Registration successful');
       reset();
       navigate('/login');
     } catch (error) {
-      setError('registrationError', {
-        type: 'custom',
-        message: error.response.data.message,
-      });
+      toast.error(error?.response?.data?.message);
     } finally {
       setIsLoading(false);
     }
@@ -80,9 +78,6 @@ export const Register = () => {
           </div>
 
           <button disabled={isLoading}>Register</button>
-          {errors?.registrationError?.message && (
-            <span>{errors?.registrationError?.message}</span>
-          )}
           <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
