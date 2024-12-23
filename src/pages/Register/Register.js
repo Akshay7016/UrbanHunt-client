@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -14,9 +15,11 @@ export const Register = () => {
     reset,
     setError,
   } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = async (data) => {
     try {
+      setIsLoading(true);
       await apiRequest.post('/auth/register', data);
       reset();
       navigate('/login');
@@ -25,6 +28,8 @@ export const Register = () => {
         type: 'custom',
         message: error.response.data.message,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -74,7 +79,7 @@ export const Register = () => {
             )}
           </div>
 
-          <button>Register</button>
+          <button disabled={isLoading}>Register</button>
           {errors?.registrationError?.message && (
             <span>{errors?.registrationError?.message}</span>
           )}
