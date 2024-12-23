@@ -1,17 +1,32 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+
+import { apiRequest } from 'services/apiRequest';
+import { authEndpoints } from 'services/apis';
 
 import './Register.scss';
 
 export const Register = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
+    setError,
   } = useForm();
 
-  const submitHandler = (data) => {
-    console.log('Data', data);
+  const submitHandler = async (data) => {
+    try {
+      await apiRequest.post(authEndpoints.REGISTER_API, data);
+      reset();
+      navigate('/login');
+    } catch (error) {
+      setError('registrationError', {
+        type: 'custom',
+        message: error.response.data.message,
+      });
+    }
   };
 
   return (
@@ -61,6 +76,9 @@ export const Register = () => {
           </div>
 
           <button>Register</button>
+          {errors?.registrationError?.message && (
+            <span>{errors?.registrationError?.message}</span>
+          )}
           <Link to="/login">Do you have an account?</Link>
         </form>
       </div>
