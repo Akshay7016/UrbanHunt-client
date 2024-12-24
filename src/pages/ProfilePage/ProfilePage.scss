@@ -26,7 +26,7 @@
       flex-direction: column;
       gap: 50px;
 
-      @include sm{
+      @include sm {
         padding-right: 0;
       }
 
@@ -63,6 +63,16 @@
           height: 40px;
           object-fit: cover;
           border-radius: 50%;
+        }
+
+        button {
+          width: fit-content;
+          padding: 10px 20px;
+          background-color: teal;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
         }
       }
     }
