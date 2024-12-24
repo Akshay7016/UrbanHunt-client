@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { userData } from 'lib/dummyData';
+import { useAuthContext } from 'context/AuthContext';
 
 import './navbar.scss';
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const user = false;
+  const { currentUser } = useAuthContext();
 
   return (
     <nav>
@@ -23,14 +23,14 @@ export const Navbar = () => {
         <Link to="/">Agents</Link>
       </div>
       <div className="right">
-        {user ? (
+        {currentUser ? (
           <div className="user">
             <img
-              src={userData.img}
+              src={currentUser?.avatar ?? '/images/avatar.jpg'}
               alt="user-image"
               onClick={() => navigate('/profile')}
             />
-            <span>{userData.name}</span>
+            <span>{currentUser?.username}</span>
             <Link to="/profile" className="profile">
               <div className="notification">3</div>
               <span>Profile</span>

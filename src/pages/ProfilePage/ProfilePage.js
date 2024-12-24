@@ -1,20 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import { userData } from 'lib/dummyData';
 import { List } from 'components/List/List';
 import { Chat } from 'components/Chat/Chat';
 import { apiRequest } from 'lib/apiRequest';
+import { useAuthContext } from 'context/AuthContext';
 
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
+  const { currentUser, updateUser } = useAuthContext();
 
   const handleLogout = async () => {
     try {
       await apiRequest.post('/auth/logout');
-      localStorage.removeItem('user');
+      updateUser(null);
       navigate('/');
     } catch (error) {
       toast.toast.error(error?.response?.data?.message);
@@ -31,13 +32,17 @@ export const ProfilePage = () => {
           </div>
           <div className="info">
             <span>
-              Avatar: <img src={userData.img} alt="user-image" />
+              Avatar:
+              <img
+                src={currentUser?.avatar ?? '/images/avatar.jpg'}
+                alt="user-image"
+              />
             </span>
             <span>
-              Username: <b>{userData.name}</b>
+              Username: <b>{currentUser?.username}</b>
             </span>
             <span>
-              E-mail: <b>akshay@test.com</b>
+              E-mail: <b>{currentUser?.email}</b>
             </span>
             <button onClick={handleLogout}>Logout</button>
           </div>

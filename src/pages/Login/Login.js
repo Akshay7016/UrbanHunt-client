@@ -4,11 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { apiRequest } from 'lib/apiRequest';
+import { useAuthContext } from 'context/AuthContext';
 
 import './Login.scss';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { updateUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
@@ -21,7 +23,7 @@ export const Login = () => {
     try {
       setIsLoading(true);
       const { data: userData } = await apiRequest.post('/auth/login', data);
-      localStorage.setItem('user', JSON.stringify(userData));
+      updateUser(userData);
       reset();
       navigate('/');
     } catch (error) {

@@ -8,6 +8,7 @@ import { SinglePage } from 'pages/SinglePage/SinglePage';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
+import { AuthContextProvider } from 'context/AuthContext';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -44,9 +45,9 @@ export const App = () => {
   ]);
 
   return (
-    <>
+    <AuthContextProvider>
       <RouterProvider router={router} />
       <Toaster />
-    </>
+    </AuthContextProvider>
   );
 };
