@@ -8,19 +8,19 @@ import './navbar.scss';
 export const Navbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const user = true;
+  const user = false;
 
   return (
     <nav>
       <div className="left">
-        <a href="/" className="logo">
+        <Link to="/" className="logo">
           <img src="/images/logo.png" alt="UrbanHunt-logo" />
           <span>UrbanHunt</span>
-        </a>
-        <a href="/">Home</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
-        <a href="/">Agents</a>
+        </Link>
+        <Link to="/">Home</Link>
+        <Link to="/">About</Link>
+        <Link to="/">Contact</Link>
+        <Link to="/">Agents</Link>
       </div>
       <div className="right">
         {user ? (
@@ -38,10 +38,10 @@ export const Navbar = () => {
           </div>
         ) : (
           <>
-            <a href="/">Sign in</a>
-            <a href="/" className="register">
+            <Link to="/login">Sign in</Link>
+            <Link to="/register" className="register">
               Sign up
-            </a>
+            </Link>
           </>
         )}
         <div className="menuIcon">
@@ -52,12 +52,12 @@ export const Navbar = () => {
           />
         </div>
         <div className={open ? 'menu active' : 'menu'}>
-          <a href="/">Home</a>
-          <a href="/">About</a>
-          <a href="/">Contact</a>
-          <a href="/">Agents</a>
-          <a href="/">Sign in</a>
-          <a href="/">Sign up</a>
+          <Link to="/">Home</Link>
+          <Link to="/">About</Link>
+          <Link to="/">Contact</Link>
+          <Link to="/">Agents</Link>
+          <Link to="/">Sign in</Link>
+          <Link to="/">Sign up</Link>
         </div>
       </div>
     </nav>
