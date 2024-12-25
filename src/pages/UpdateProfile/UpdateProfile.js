@@ -107,6 +107,7 @@ export const UpdateProfile = () => {
           setAvatar={setAvatar}
         />
       </div>
+      <h1 className="mediumScreenHeader">Update Profile</h1>
     </div>
   );
 };

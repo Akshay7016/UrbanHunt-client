@@ -3,7 +3,22 @@
 .profileUpdatePage {
   display: flex;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+
+  @include md {
+    height: max-content;
+    flex-direction: column-reverse;
+    gap: 40px;
+  }
+
+  .mediumScreenHeader {
+    display: none;
+
+    @include md {
+      display: flex;
+      justify-content: center;
+    }
+  }
 
   .formContainer {
     flex: 3;
@@ -11,7 +26,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow-y: scroll;
+
+    @include md {
+      flex: none;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
 
     form {
       display: flex;
@@ -20,6 +40,10 @@
 
       h1 {
         text-align: center;
+
+        @include md {
+          display: none;
+        }
       }
 
       .item {
@@ -55,6 +79,7 @@
       }
     }
   }
+
   .imageContainer {
     flex: 2;
     background-color: #fcf5f3;
@@ -64,11 +89,22 @@
     justify-content: center;
     align-items: center;
 
+    @include md {
+      flex: none;
+      background-color: transparent;
+      justify-content: flex-start;
+    }
+
     img {
-      width: 50%;
-      height: 50%;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
       object-fit: fill;
+
+      @include sm {
+        width: 200px;
+        height: 200px;
+      }
     }
   }
 }
