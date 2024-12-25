@@ -42,6 +42,10 @@ const UploadWidget = ({ uwConfig, setAvatar }) => {
       ref={uploadButtonRef}
       id="upload_widget"
       className="cloudinary-button"
+      style={{
+        padding: '5px 20px',
+        border: 'none',
+      }}
     >
       Upload
     </button>
