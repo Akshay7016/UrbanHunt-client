@@ -99,8 +99,8 @@ export const UpdateProfile = () => {
             cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
             uploadPreset: process.env.REACT_APP_CLOUDINARY_PRESET_NAME,
             multiple: false,
-            // Allow max 500KB image size
-            maxImageFileSize: 512500,
+            // Allow max 300KB image size
+            maxImageFileSize: 308000,
             folder: process.env.REACT_APP_CLOUDINARY_AVATAR_FOLDER_NAME,
             clientAllowedFormats: ['jpeg', 'jpg', 'png'],
           }}
