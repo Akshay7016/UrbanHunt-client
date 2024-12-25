@@ -3,12 +3,13 @@ import { Toaster } from 'react-hot-toast';
 
 import { HomePage } from 'pages/HomePage/HomePage';
 import { ListPage } from 'pages/ListPage/ListPage';
-import { Layout } from 'pages/Layout/Layout';
+import { Layout, RequireAuth } from 'pages/Layout/Layout';
 import { SinglePage } from 'pages/SinglePage/SinglePage';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
 import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
 import { AuthContextProvider } from 'context/AuthContext';
+import { UpdateProfile } from 'pages/UpdateProfile/UpdateProfile';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -28,10 +29,7 @@ export const App = () => {
           path: '/:id',
           element: <SinglePage />,
         },
-        {
-          path: '/profile',
-          element: <ProfilePage />,
-        },
+
         {
           path: '/login',
           element: <Login />,
@@ -39,6 +37,20 @@ export const App = () => {
         {
           path: '/register',
           element: <Register />,
+        },
+      ],
+    },
+    {
+      path: '/',
+      element: <RequireAuth />,
+      children: [
+        {
+          path: '/profile',
+          element: <ProfilePage />,
+        },
+        {
+          path: '/profile/update',
+          element: <UpdateProfile />,
         },
       ],
     },
