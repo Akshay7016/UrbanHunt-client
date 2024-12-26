@@ -10,6 +10,7 @@ import { Register } from 'pages/Register/Register';
 import { Login } from 'pages/Login/Login';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UpdateProfile } from 'pages/UpdateProfile/UpdateProfile';
+import { NewPostPage } from 'pages/NewPostPage/NewPostPage';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const App = () => {
         {
           path: '/profile/update',
           element: <UpdateProfile />,
+        },
+        {
+          path: '/createPost',
+          element: <NewPostPage />,
         },
       ],
     },

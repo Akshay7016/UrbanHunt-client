@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const UploadWidget = ({ uwConfig, setAvatar }) => {
+const UploadWidget = ({ uwConfig, setState, buttonTitle = 'Choose' }) => {
   const uploadWidgetRef = useRef(null);
   const uploadButtonRef = useRef(null);
 
@@ -12,7 +12,7 @@ const UploadWidget = ({ uwConfig, setAvatar }) => {
           uwConfig,
           (error, result) => {
             if (!error && result && result.event === 'success') {
-              setAvatar(result.info.secure_url);
+              setState((prev) => [...prev, result.info.secure_url]);
             }
           },
         );
@@ -35,7 +35,7 @@ const UploadWidget = ({ uwConfig, setAvatar }) => {
     };
 
     initializeUploadWidget();
-  }, [uwConfig, setAvatar]);
+  }, [uwConfig, setState]);
 
   return (
     <button
@@ -47,7 +47,7 @@ const UploadWidget = ({ uwConfig, setAvatar }) => {
         border: 'none',
       }}
     >
-      Choose
+      {buttonTitle}
     </button>
   );
 };

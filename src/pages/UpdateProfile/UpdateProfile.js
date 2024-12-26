@@ -13,7 +13,7 @@ export const UpdateProfile = () => {
   const navigate = useNavigate();
   const { currentUser, updateUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
-  const [avatar, setAvatar] = useState(currentUser?.avatar);
+  const [avatar, setAvatar] = useState([]);
   const {
     register,
     handleSubmit,
@@ -30,7 +30,7 @@ export const UpdateProfile = () => {
       setIsLoading(true);
       const { data: userDetails } = await apiRequest.put(
         `/users/${currentUser?.id}`,
-        { ...data, avatar },
+        { ...data, avatar: avatar[0] },
       );
       updateUser(userDetails);
       toast.success('Details updated');
@@ -93,7 +93,10 @@ export const UpdateProfile = () => {
         </form>
       </div>
       <div className="imageContainer">
-        <img src={avatar ?? '/images/avatar.jpg'} alt="user-avatar" />
+        <img
+          src={avatar[0] || currentUser?.avatar || '/images/avatar.jpg'}
+          alt="user-avatar"
+        />
         <UploadWidget
           uwConfig={{
             cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -104,7 +107,8 @@ export const UpdateProfile = () => {
             folder: process.env.REACT_APP_CLOUDINARY_AVATAR_FOLDER_NAME,
             clientAllowedFormats: ['jpeg', 'jpg', 'png'],
           }}
-          setAvatar={setAvatar}
+          setState={setAvatar}
+          buttonTitle="Choose Profile Picture"
         />
       </div>
       <h1 className="mediumScreenHeader">Update Profile</h1>
