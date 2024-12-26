@@ -15,6 +15,7 @@ export const NewPostPage = () => {
   const [images, setImages] = useState([]);
   const [desc, setDesc] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const imagesGreaterThanZero = images.length > 0;
   const {
     register,
     handleSubmit,
@@ -317,10 +318,14 @@ export const NewPostPage = () => {
           </form>
         </div>
       </div>
-      <div className={`sideContainer ${images.length > 0 && 'hasImages'}`}>
-        {images.map((image, index) => (
-          <img src={image} key={index} alt={`post-image-${index}`} />
-        ))}
+      <div className={`sideContainer ${imagesGreaterThanZero && 'hasImages'}`}>
+        {imagesGreaterThanZero > 0 && (
+          <div className="imageContainer">
+            {images.map((image, index) => (
+              <img src={image} key={index} alt={`post-image-${index}`} />
+            ))}
+          </div>
+        )}
         <UploadWidget
           uwConfig={{
             cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
@@ -336,6 +341,7 @@ export const NewPostPage = () => {
           buttonTitle="Select Property Images"
         />
       </div>
+      <h1 className="mediumScreenHeader">Add New Post</h1>
     </div>
   );
 };
