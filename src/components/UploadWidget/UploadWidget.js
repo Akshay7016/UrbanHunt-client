@@ -47,7 +47,7 @@ const UploadWidget = ({ uwConfig, setAvatar }) => {
         border: 'none',
       }}
     >
-      Upload
+      Choose
     </button>
   );
 };
