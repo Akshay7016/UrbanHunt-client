@@ -1,24 +1,30 @@
+import { useLoaderData } from 'react-router-dom';
+import DOMPurify from 'dompurify';
+
 import { Slider } from 'components/Slider/Slider';
 import { Map } from 'components/Map/Map';
-import { singlePostData, userData } from 'lib/dummyData';
+import { getDistance } from 'lib/getDistance';
 
 import './SinglePage.scss';
 
+const utilitiesData = {
+  owner: 'Owner is responsible',
+  tenant: 'Tenant is responsible',
+  shared: 'Shared',
+};
+
 export const SinglePage = () => {
+  const post = useLoaderData();
   const {
-    title,
     images,
+    title,
     address,
     price,
-    description,
-    size,
-    bedRooms,
+    bedroom,
     bathroom,
-    school,
-    bus,
-    restaurant,
-  } = singlePostData;
-  const { img, name } = userData;
+    user: { username, avatar },
+    postDetail: { desc, utilities, pet, income, size, school, bus, restaurant },
+  } = post;
 
   return (
     <div className="singlePage">
@@ -34,15 +40,17 @@ export const SinglePage = () => {
                   <img src="/images/pin.png" alt="pin-icon" />
                   <span>{address}</span>
                 </div>
-                <div className="price">$ {price}</div>
+                <div className="price">Rs {price}</div>
               </div>
               <div className="user">
-                <img src={img} alt="user-image" />
-                <p>{name}</p>
+                <img src={avatar ?? '/images/avatar.jpg'} alt="user-image" />
+                <p>{username}</p>
               </div>
             </div>
             <div className="bottom">
-              <p>{description}</p>
+              <p
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(desc) }}
+              ></p>
             </div>
           </div>
         </div>
@@ -55,7 +63,7 @@ export const SinglePage = () => {
               <img src="/images/utility.png" alt="utility" />
               <div className="featureText">
                 <span>Utilities</span>
-                <p>Renter is responsible</p>
+                <p>{utilitiesData[utilities]}</p>
               </div>
             </div>
 
@@ -63,15 +71,15 @@ export const SinglePage = () => {
               <img src="/images/pet.png" alt="pet" />
               <div className="featureText">
                 <span>Pet Policy</span>
-                <p>Pets Allowed</p>
+                <p>{pet === 'allowed' ? 'Allowed' : 'Not allowed'}</p>
               </div>
             </div>
 
             <div className="feature">
               <img src="/images/fee.png" alt="fee" />
               <div className="featureText">
-                <span>Property Fees</span>
-                <p>Must have 3x the rent in total household income</p>
+                <span>Income Policy</span>
+                <p>{income}</p>
               </div>
             </div>
           </div>
@@ -84,7 +92,7 @@ export const SinglePage = () => {
 
             <div className="size">
               <img src="/images/bed.png" alt="size" />
-              <span>{bedRooms} bedroom</span>
+              <span>{bedroom} bedroom</span>
             </div>
 
             <div className="size">
@@ -98,7 +106,7 @@ export const SinglePage = () => {
               <img src="/images/school.png" alt="school" />
               <div className="featureText">
                 <span>School</span>
-                <p>{school}</p>
+                <p>{getDistance(school)}</p>
               </div>
             </div>
 
@@ -106,7 +114,7 @@ export const SinglePage = () => {
               <img src="/images/bus.png" alt="bus" />
               <div className="featureText">
                 <span>Bus</span>
-                <p>{bus}</p>
+                <p>{getDistance(bus)}</p>
               </div>
             </div>
 
@@ -114,13 +122,13 @@ export const SinglePage = () => {
               <img src="/images/restaurant.png" alt="resto" />
               <div className="featureText">
                 <span>Restaurant</span>
-                <p>{restaurant}</p>
+                <p>{getDistance(restaurant)}</p>
               </div>
             </div>
           </div>
           <div className="title">Location</div>
           <div className="mapContainer">
-            <Map items={[singlePostData]} />
+            <Map items={[post]} />
           </div>
           <div className="buttons">
             <button>

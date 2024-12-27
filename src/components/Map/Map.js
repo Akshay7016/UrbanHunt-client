@@ -10,7 +10,9 @@ export const Map = ({ items }) => {
 
   return (
     <MapContainer
-      center={[latitude, longitude]}
+      center={
+        items.length === 1 ? [latitude, longitude] : ['19.7515', '75.7139']
+      }
       zoom={7}
       scrollWheelZoom={false}
       className="map"

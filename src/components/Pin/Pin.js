@@ -24,7 +24,7 @@ export const Pin = ({
           <div className="textContainer">
             <Link to={`/${id}`}>{title}</Link>
             <span>{bedroom} bedroom</span>
-            <b>$ {price}</b>
+            <b>Rs {price}</b>
           </div>
         </div>
       </Popup>
