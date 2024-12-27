@@ -22,6 +22,7 @@ export const SinglePage = () => {
     price,
     bedroom,
     bathroom,
+    city,
     user: { username, avatar },
     postDetail: { desc, utilities, pet, income, size, school, bus, restaurant },
   } = post;
@@ -38,7 +39,9 @@ export const SinglePage = () => {
                 <h1>{title}</h1>
                 <div className="address">
                   <img src="/images/pin.png" alt="pin-icon" />
-                  <span>{address}</span>
+                  <span>
+                    {address}, {city}
+                  </span>
                 </div>
                 <div className="price">Rs {price}</div>
               </div>

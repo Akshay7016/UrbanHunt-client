@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './Card.scss';
 
 export const Card = ({
-  item: { id, images, title, address, price, bedroom, bathroom },
+  item: { id, images, title, address, price, bedroom, bathroom, city },
 }) => {
   return (
     <div className="card">
@@ -16,9 +16,11 @@ export const Card = ({
         </h2>
         <p className="address">
           <img src="/images/pin.png" alt="pin-image" />
-          <span>{address}</span>
+          <span>
+            {address}, {city}
+          </span>
         </p>
-        <p className="price">$ {price}</p>
+        <p className="price">Rs {price}</p>
         <div className="bottom">
           <div className="features">
             <div className="feature">
