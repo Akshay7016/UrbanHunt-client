@@ -1,19 +1,21 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import './SearchBar.scss';
 
 const types = ['buy', 'rent'];
 
 export const SearchBar = () => {
-  const [query, setQuery] = useState({
-    type: 'buy',
-    location: '',
-    minPrice: 0,
-    maxPrice: 0,
-  });
+  const navigate = useNavigate();
+  const [propertyType, setPropertyType] = useState('buy');
+  const { register, handleSubmit } = useForm();
 
-  const switchType = (type) => {
-    setQuery({ ...query, type });
+  const navigateToListPage = (data) => {
+    const { city, minPrice, maxPrice } = data;
+    navigate(
+      `/list?type=${propertyType}&city=${city}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
+    );
   };
 
   return (
@@ -22,28 +24,32 @@ export const SearchBar = () => {
         {types.map((type) => (
           <button
             key={type}
-            onClick={() => switchType(type)}
-            className={query.type === type ? 'active' : ''}
+            onClick={() => setPropertyType(type)}
+            className={propertyType === type ? 'active' : ''}
           >
             {type}
           </button>
         ))}
       </div>
-      <form>
-        <input type="text" name="location" placeholder="City Location" />
+      <form onSubmit={handleSubmit(navigateToListPage)} noValidate>
+        <input type="text" placeholder="City" {...register('city')} />
         <input
           type="number"
-          name="minPrice"
-          min={0}
-          max={10000000}
           placeholder="Min Price"
+          {...register('minPrice', {
+            min: 0,
+            max: 10000000,
+            valueAsNumber: true,
+          })}
         />
         <input
           type="number"
-          name="maxPrice"
-          min={0}
-          max={10000000}
           placeholder="Max Price"
+          {...register('maxPrice', {
+            min: 0,
+            max: 10000000,
+            valueAsNumber: true,
+          })}
         />
         <button>
           <img src="/images/search.png" alt="search" />

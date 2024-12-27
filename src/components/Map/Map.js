@@ -6,12 +6,12 @@ import { Pin } from 'components/Pin/Pin';
 import './Map.scss';
 
 export const Map = ({ items }) => {
-  const { latitude, longitude } = items[0];
-
   return (
     <MapContainer
       center={
-        items.length === 1 ? [latitude, longitude] : ['19.7515', '75.7139']
+        items.length === 1
+          ? [items[0]?.latitude, items[0]?.longitude]
+          : ['19.7515', '75.7139']
       }
       zoom={7}
       scrollWheelZoom={false}
