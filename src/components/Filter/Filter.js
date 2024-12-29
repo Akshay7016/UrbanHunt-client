@@ -1,34 +1,35 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import queryString from 'query-string';
 
 import './Filter.scss';
 
 export const Filter = () => {
-  const navigate = useNavigate();
-  const { search } = useLocation();
-  const { city } = queryString.parse(search);
-  const { register, getValues } = useForm();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { register, getValues } = useForm({
+    defaultValues: {
+      city: searchParams.get('city') || '',
+      type: searchParams.get('type') || '',
+      property: searchParams.get('property') || '',
+      ...(searchParams.get('minPrice') && {
+        minPrice: searchParams.get('minPrice'),
+      }),
+      ...(searchParams.get('maxPrice') && {
+        maxPrice: searchParams.get('maxPrice'),
+      }),
+      ...(searchParams.get('bedroom') && {
+        bedroom: searchParams.get('bedroom'),
+      }),
+    },
+  });
 
   const searchPosts = () => {
-    const [inputCity, type, property, minPrice, maxPrice, bedroom] = getValues([
-      'city',
-      'type',
-      'property',
-      'minPrice',
-      'maxPrice',
-      'bedroom',
-    ]);
-
-    navigate(
-      `/list?type=${type}&city=${inputCity}&minPrice=${minPrice}&maxPrice=${maxPrice}&property=${property}&bedroom=${bedroom}`,
-    );
+    setSearchParams(getValues());
   };
 
   return (
     <div className="filter">
       <h1>
-        Search results for <b>{city}</b>
+        Search results for <b>{searchParams.get('city')}</b>
       </h1>
       <div className="top">
         <div className="item">
