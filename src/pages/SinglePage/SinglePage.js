@@ -1,4 +1,5 @@
-import { useLoaderData } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
 import { Slider } from 'components/Slider/Slider';
@@ -6,6 +7,8 @@ import { Map } from 'components/Map/Map';
 import { getDistance } from 'lib/getDistance';
 
 import './SinglePage.scss';
+import { apiRequest } from 'lib/apiRequest';
+import { Spinner } from 'components/Spinner/Spinner';
 
 const utilitiesData = {
   owner: 'Owner is responsible',
@@ -14,7 +17,12 @@ const utilitiesData = {
 };
 
 export const SinglePage = () => {
-  const post = useLoaderData();
+  const { pathname } = useLocation();
+  const postId = pathname.slice(1);
+  const [post, setPost] = useState({});
+  const [isLoading, setIsLoading] = useState({});
+  const [error, setError] = useState(false);
+
   const {
     images,
     title,
@@ -23,15 +31,48 @@ export const SinglePage = () => {
     bedroom,
     bathroom,
     city,
-    user: { username, avatar },
-    postDetail: { desc, utilities, pet, income, size, school, bus, restaurant },
+    user: { username = '', avatar = '' } = {},
+    postDetail: {
+      desc,
+      utilities,
+      pet,
+      income,
+      size,
+      school,
+      bus,
+      restaurant,
+    } = {},
   } = post;
+
+  useEffect(() => {
+    const fetchPostDetails = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await apiRequest.get(`/posts/${postId}`);
+        setPost(data);
+      } catch (error) {
+        setError(error?.response?.data?.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPostDetails();
+  }, [postId]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (error) {
+    return <h1 className="errorMessage">{error}</h1>;
+  }
 
   return (
     <div className="singlePage">
       <div className="details">
         <div className="wrapper">
-          <Slider images={images} />
+          {images.length > 0 && <Slider images={images} />}
 
           <div className="info">
             <div className="top">

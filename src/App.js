@@ -11,7 +11,7 @@ import { Login } from 'pages/Login/Login';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UpdateProfile } from 'pages/UpdateProfile/UpdateProfile';
 import { NewPostPage } from 'pages/NewPostPage/NewPostPage';
-import { listPageLoader, singlePageLoader } from 'lib/loaders';
+import { listPageLoader } from 'lib/loaders';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -31,7 +31,6 @@ export const App = () => {
         {
           path: '/:id',
           element: <SinglePage />,
-          loader: singlePageLoader,
         },
 
         {
