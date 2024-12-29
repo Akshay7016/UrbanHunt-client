@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { apiRequest } from 'lib/apiRequest';
@@ -10,7 +10,7 @@ import './Login.scss';
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { updateUser } = useAuthContext();
+  const { updateUser, currentUser } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
@@ -32,6 +32,10 @@ export const Login = () => {
       setIsLoading(false);
     }
   };
+
+  if (currentUser) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <div className="loginPage">

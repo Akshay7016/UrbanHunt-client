@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 import { apiRequest } from 'lib/apiRequest';
+import { useAuthContext } from 'context/AuthContext';
 
 import './Register.scss';
 
 export const Register = () => {
   const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
   const {
     register,
     formState: { errors },
@@ -30,6 +32,10 @@ export const Register = () => {
       setIsLoading(false);
     }
   };
+
+  if (currentUser) {
+    return <Navigate to="/profile" />;
+  }
 
   return (
     <div className="registerPage">
