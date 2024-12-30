@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
+import toast from 'react-hot-toast';
 
 import { Slider } from 'components/Slider/Slider';
 import { Map } from 'components/Map/Map';
 import { getDistance } from 'lib/getDistance';
-
-import './SinglePage.scss';
+import { useAuthContext } from 'context/AuthContext';
 import { apiRequest } from 'lib/apiRequest';
 import { Spinner } from 'components/Spinner/Spinner';
+
+import './SinglePage.scss';
 
 const utilitiesData = {
   owner: 'Owner is responsible',
@@ -18,10 +20,13 @@ const utilitiesData = {
 
 export const SinglePage = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { currentUser } = useAuthContext();
   const postId = pathname.slice(1);
   const [post, setPost] = useState({});
   const [isLoading, setIsLoading] = useState({});
   const [error, setError] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   const {
     images,
@@ -44,12 +49,27 @@ export const SinglePage = () => {
     } = {},
   } = post;
 
+  const handleSave = async () => {
+    if (!currentUser) {
+      return navigate('/login');
+    }
+
+    try {
+      await apiRequest.post('/users/save', { postId });
+      setSaved((prev) => !prev);
+      toast.success(saved ? 'Place unsaved' : 'Place saved');
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
         setIsLoading(true);
         const { data } = await apiRequest.get(`/posts/${postId}`);
         setPost(data);
+        setSaved(data?.isSaved);
       } catch (error) {
         setError(error?.response?.data?.message);
       } finally {
@@ -179,9 +199,14 @@ export const SinglePage = () => {
               <img src="/images/chat.png" alt="chat" />
               <span>Send a Message</span>
             </button>
-            <button>
+            <button
+              onClick={handleSave}
+              style={{
+                backgroundColor: saved ? '#fece51' : 'white',
+              }}
+            >
               <img src="/images/save.png" alt="save" />
-              Save the Places
+              {saved ? 'Place saved' : 'Save the Place'}
             </button>
           </div>
         </div>
