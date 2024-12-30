@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
@@ -5,12 +6,15 @@ import { List } from 'components/List/List';
 import { Chat } from 'components/Chat/Chat';
 import { apiRequest } from 'lib/apiRequest';
 import { useAuthContext } from 'context/AuthContext';
+import { Spinner } from 'components/Spinner/Spinner';
 
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
   const navigate = useNavigate();
   const { currentUser, updateUser } = useAuthContext();
+  const [posts, setPosts] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -21,6 +25,26 @@ export const ProfilePage = () => {
       toast.toast.error(error?.response?.data?.message);
     }
   };
+
+  useEffect(() => {
+    const getProfilePosts = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await apiRequest.get('/users/profilePosts');
+        setPosts(data);
+      } catch (error) {
+        toast.error(error?.response?.data?.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getProfilePosts();
+  }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="profilePage">
@@ -54,11 +78,11 @@ export const ProfilePage = () => {
               Create New Post
             </button>
           </div>
-          <List />
+          <List posts={posts?.userPosts} />
           <div className="title">
             <h1>Saved List</h1>
           </div>
-          <List />
+          <List posts={posts?.savedPosts} />
         </div>
       </div>
       <div className="chatContainer">
