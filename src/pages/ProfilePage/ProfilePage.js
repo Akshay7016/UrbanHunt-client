@@ -14,9 +14,9 @@ export const ProfilePage = () => {
 
   const handleLogout = async () => {
     try {
+      navigate('/');
       await apiRequest.post('/auth/logout');
       updateUser(null);
-      navigate('/');
     } catch (error) {
       toast.toast.error(error?.response?.data?.message);
     }
@@ -50,7 +50,9 @@ export const ProfilePage = () => {
           </div>
           <div className="title">
             <h1>My List</h1>
-            <button onClick={() => navigate("/createPost")}>Create New Post</button>
+            <button onClick={() => navigate('/createPost')}>
+              Create New Post
+            </button>
           </div>
           <List />
           <div className="title">
