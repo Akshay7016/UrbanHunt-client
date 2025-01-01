@@ -22,7 +22,9 @@ export const Chat = ({ chats }) => {
     try {
       const { data } = await apiRequest.get(`/chats/${chatId}`);
       setChat({ ...data, receiver });
-      decrease();
+      if (!data.seenBy.includes(currentUser.id)) {
+        decrease();
+      }
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
