@@ -63,6 +63,12 @@ export const SinglePage = () => {
     }
   };
 
+  const handleSendMessage = async () => {
+    if (!currentUser) {
+      return navigate('/login');
+    }
+  };
+
   useEffect(() => {
     const fetchPostDetails = async () => {
       try {
@@ -195,7 +201,7 @@ export const SinglePage = () => {
             <Map items={[post]} />
           </div>
           <div className="buttons">
-            <button>
+            <button onClick={handleSendMessage}>
               <img src="/images/chat.png" alt="chat" />
               <span>Send a Message</span>
             </button>
