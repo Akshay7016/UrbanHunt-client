@@ -1,23 +1,65 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { format } from 'timeago.js';
+import { useForm } from 'react-hook-form';
 
-import { userData } from 'lib/dummyData';
+import { useAuthContext } from 'context/AuthContext';
+import { apiRequest } from 'lib/apiRequest';
 
 import './Chat.scss';
 
-export const Chat = () => {
+export const Chat = ({ chats }) => {
   const [chat, setChat] = useState(null);
-  const { img, name } = userData;
+  const { currentUser } = useAuthContext();
+  const { register, handleSubmit, reset } = useForm();
+
+  const handleOpenChat = async (chatId, receiver) => {
+    try {
+      const { data } = await apiRequest.get(`/chats/${chatId}`);
+      setChat({ ...data, receiver });
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const sendMessage = async ({ message = '' }) => {
+    if (!message) {
+      return;
+    }
+
+    try {
+      const { data } = await apiRequest.post(`/messages/${chat.id}`, {
+        text: message,
+      });
+      setChat((prev) => ({ ...prev, messages: [...prev.messages, data] }));
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+    reset();
+  };
 
   return (
     <div className="chat">
       {!chat ? (
         <div className="messages">
           <h1>Messages</h1>
-          {[1, 2, 3, 4, 5].map((item) => (
-            <div className="message" key={item} onClick={() => setChat(item)}>
-              <img src={img} alt="user-image" />
-              <span>{name}</span>
-              <p>Some message.....</p>
+          {chats.map((item) => (
+            <div
+              className="message"
+              key={item.id}
+              onClick={() => handleOpenChat(item.id, item.receiver)}
+              style={{
+                backgroundColor: item?.seenBy?.includes(currentUser?.id)
+                  ? 'white'
+                  : '#fecd514e',
+              }}
+            >
+              <img
+                src={item?.receiver?.avatar || '/images/avatar.jpg'}
+                alt="user-image"
+              />
+              <span>{item?.receiver?.username}</span>
+              <p>{item.lastMessage}</p>
             </div>
           ))}
         </div>
@@ -25,155 +67,31 @@ export const Chat = () => {
         <div className="chatBox">
           <div className="top">
             <div className="user">
-              <img src={img} alt="user-iamge" />
-              <span>{name}</span>
+              <img
+                src={chat?.receiver?.avatar || '/images/avatar.jpg'}
+                alt="user-image"
+              />
+              <span>{chat?.receiver?.username}</span>
             </div>
             <span className="close" onClick={() => setChat(null)}>
               X
             </span>
           </div>
           <div className="center">
-            <div className="chatMessage">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>How are you</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>I am fine</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>How are you?</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>I am doing good</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>How are you</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>I am fine</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>How are you?</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>I am doing good</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>How are you</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>I am fine</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>How are you?</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>I am doing good</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>How are you</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Hi</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>I am fine</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>How are you?</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>I am doing good</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
-            <div className="chatMessage own">
-              <p>Lorem Lorem Lorem Lorem</p>
-              <span>1 hour ago</span>
-            </div>
+            {chat?.messages?.map((message) => (
+              <div
+                key={message.id}
+                className={`chatMessage ${message.userId === currentUser.id ? 'own' : ''}`}
+              >
+                <p>{message.text}</p>
+                <span>{format(message.createdAt)}</span>
+              </div>
+            ))}
           </div>
-          <div className="bottom">
-            <textarea></textarea>
+          <form onSubmit={handleSubmit(sendMessage)} className="bottom">
+            <textarea {...register('message')}></textarea>
             <button>Send</button>
-          </div>
+          </form>
         </div>
       )}
     </div>

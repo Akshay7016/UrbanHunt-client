@@ -73,7 +73,7 @@
     }
 
     .center {
-      height: max-content;
+      height: 100%;
       overflow-y: scroll;
       padding: 20px;
       display: flex;
@@ -123,6 +123,7 @@
         height: 100%;
         border: none;
         padding: 20px;
+        resize: none;
       }
 
       button {

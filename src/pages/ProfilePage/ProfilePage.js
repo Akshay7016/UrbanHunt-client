@@ -14,6 +14,7 @@ export const ProfilePage = () => {
   const navigate = useNavigate();
   const { currentUser, updateUser } = useAuthContext();
   const [posts, setPosts] = useState({});
+  const [chats, setChats] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
@@ -31,7 +32,9 @@ export const ProfilePage = () => {
       try {
         setIsLoading(true);
         const { data } = await apiRequest.get('/users/profilePosts');
+        const { data: chatsData } = await apiRequest.get('/chats');
         setPosts(data);
+        setChats(chatsData);
       } catch (error) {
         toast.error(error?.response?.data?.message);
       } finally {
@@ -87,7 +90,7 @@ export const ProfilePage = () => {
       </div>
       <div className="chatContainer">
         <div className="wrapper">
-          <Chat />
+          <Chat chats={chats} />
         </div>
       </div>
     </div>
