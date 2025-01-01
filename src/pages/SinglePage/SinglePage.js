@@ -27,6 +27,7 @@ export const SinglePage = () => {
   const [isLoading, setIsLoading] = useState({});
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
+  const isSameUserWhoCreatedPost = post.userId === currentUser.id;
 
   const {
     images,
@@ -201,17 +202,29 @@ export const SinglePage = () => {
             <Map items={[post]} />
           </div>
           <div className="buttons">
-            <button onClick={handleSendMessage}>
-              <img src="/images/chat.png" alt="chat" />
+            <button
+              disabled={isSameUserWhoCreatedPost}
+              onClick={handleSendMessage}
+            >
+              <img
+                src="/images/chat.png"
+                alt="chat"
+                className={isSameUserWhoCreatedPost ? 'disabledIcon' : ''}
+              />
               <span>Send a Message</span>
             </button>
             <button
               onClick={handleSave}
+              disabled={isSameUserWhoCreatedPost}
               style={{
                 backgroundColor: saved ? '#fece51' : 'white',
               }}
             >
-              <img src="/images/save.png" alt="save" />
+              <img
+                src="/images/save.png"
+                alt="save"
+                className={isSameUserWhoCreatedPost ? 'disabledIcon' : ''}
+              />
               {saved ? 'Place saved' : 'Save the Place'}
             </button>
           </div>
