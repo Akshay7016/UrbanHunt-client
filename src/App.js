@@ -11,6 +11,7 @@ import { Login } from 'pages/Login/Login';
 import { AuthContextProvider } from 'context/AuthContext';
 import { UpdateProfile } from 'pages/UpdateProfile/UpdateProfile';
 import { NewPostPage } from 'pages/NewPostPage/NewPostPage';
+import { SocketContextProvider } from 'context/SocketContext';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -63,8 +64,10 @@ export const App = () => {
 
   return (
     <AuthContextProvider>
-      <RouterProvider router={router} />
-      <Toaster />
+      <SocketContextProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </SocketContextProvider>
     </AuthContextProvider>
   );
 };
