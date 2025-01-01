@@ -79,23 +79,23 @@ export const Chat = ({ chats }) => {
       {!chat ? (
         <div className="messages">
           <h1>Messages</h1>
-          {chats.map((item) => (
+          {chats.map((userChat) => (
             <div
               className="message"
-              key={item.id}
-              onClick={() => handleOpenChat(item.id, item.receiver)}
+              key={userChat.id}
+              onClick={() => handleOpenChat(userChat.id, userChat.receiver)}
               style={{
-                backgroundColor: item?.seenBy?.includes(currentUser?.id)
+                backgroundColor: userChat?.seenBy?.includes(currentUser?.id)
                   ? 'white'
                   : '#fecd514e',
               }}
             >
               <img
-                src={item?.receiver?.avatar || '/images/avatar.jpg'}
+                src={userChat?.receiver?.avatar || '/images/avatar.jpg'}
                 alt="user-image"
               />
-              <span>{item?.receiver?.username}</span>
-              <p>{item.lastMessage}</p>
+              <span>{userChat?.receiver?.username}</span>
+              <p>{userChat.lastMessage}</p>
             </div>
           ))}
         </div>
