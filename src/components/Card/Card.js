@@ -32,14 +32,6 @@ export const Card = ({
               <span>{bathroom} bathroom</span>
             </div>
           </div>
-          <div className="icons">
-            <div className="icon">
-              <img src="/images/save.png" alt="sav-png" />
-            </div>
-            <div className="icon">
-              <img src="/images/chat.png" alt="chat-png" />
-            </div>
-          </div>
         </div>
       </div>
     </div>

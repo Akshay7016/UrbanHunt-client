@@ -94,30 +94,6 @@
           border-radius: 5px;
         }
       }
-
-      .icons {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-
-        @include sm {
-          gap: 10px;
-        }
-
-        .icon {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border: 1px solid #999;
-          padding: 2px 5px;
-          border-radius: 5px;
-          cursor: pointer;
-
-          &:hover {
-            background-color: lightgrey;
-          }
-        }
-      }
     }
   }
 }
