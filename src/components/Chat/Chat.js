@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useAuthContext } from 'context/AuthContext';
 import { apiRequest } from 'lib/apiRequest';
 import { useSocketContext } from 'context/SocketContext';
+import { useNotificationStore } from 'lib/notificationStore';
 
 import './Chat.scss';
 
@@ -15,11 +16,13 @@ export const Chat = ({ chats }) => {
   const { currentUser } = useAuthContext();
   const { socket } = useSocketContext();
   const { register, handleSubmit, reset } = useForm();
+  const decrease = useNotificationStore((state) => state.decrease);
 
   const handleOpenChat = async (chatId, receiver) => {
     try {
       const { data } = await apiRequest.get(`/chats/${chatId}`);
       setChat({ ...data, receiver });
+      decrease();
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
