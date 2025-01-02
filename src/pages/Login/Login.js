@@ -47,6 +47,10 @@ export const Login = () => {
               type="email"
               {...register('email', {
                 required: 'Email is required',
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: 'Enter valid email address',
+                },
               })}
               placeholder="Email"
             />

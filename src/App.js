@@ -12,6 +12,9 @@ import { AuthContextProvider } from 'context/AuthContext';
 import { UpdateProfile } from 'pages/UpdateProfile/UpdateProfile';
 import { NewPostPage } from 'pages/NewPostPage/NewPostPage';
 import { SocketContextProvider } from 'context/SocketContext';
+import { AboutPage } from 'pages/AboutPage/AboutPage';
+import { ContactUs } from 'pages/ContactUs/ContactUs';
+import { AgentsPage } from 'pages/AgentsPage/AgentsPage';
 
 export const App = () => {
   const router = createBrowserRouter([
@@ -39,6 +42,18 @@ export const App = () => {
         {
           path: '/register',
           element: <Register />,
+        },
+        {
+          path: '/about',
+          element: <AboutPage />,
+        },
+        {
+          path: '/contact',
+          element: <ContactUs />,
+        },
+        {
+          path: '/agents',
+          element: <AgentsPage />,
         },
       ],
     },

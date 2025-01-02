@@ -41,9 +41,9 @@ export const Navbar = () => {
           <span>UrbanHunt</span>
         </Link>
         <Link to="/">Home</Link>
-        <Link to="/">About</Link>
-        <Link to="/">Contact</Link>
-        <Link to="/">Agents</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
+        <Link to="/agents">Agents</Link>
       </div>
       <div className="right">
         {currentUser ? (
@@ -80,13 +80,13 @@ export const Navbar = () => {
           <Link to="/" onClick={closeSideBar}>
             Home
           </Link>
-          <Link to="/" onClick={closeSideBar}>
+          <Link to="/about" onClick={closeSideBar}>
             About
           </Link>
-          <Link to="/" onClick={closeSideBar}>
+          <Link to="/contact" onClick={closeSideBar}>
             Contact
           </Link>
-          <Link to="/" onClick={closeSideBar}>
+          <Link to="/agents" onClick={closeSideBar}>
             Agents
           </Link>
           {!currentUser && (

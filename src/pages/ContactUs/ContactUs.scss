@@ -1,0 +1,86 @@
+@import 'responsive.scss';
+
+// Variables
+$primary-color: #2c3e50;
+$secondary-color: #ecf0f1;
+$btn-color: #3498db;
+$btn-hover: darken($btn-color, 10%);
+
+.contactPage {
+  padding: 1.5rem;
+  line-height: 1.6;
+
+  @include sm {
+    padding: 1.5rem 0.2rem;
+  }
+
+  .contact {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    @include sm {
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: $primary-color;
+    }
+
+    p {
+      margin-bottom: 2rem;
+    }
+
+    form {
+      .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+          display: block;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid lighten($primary-color, 30%);
+          border-radius: 4px;
+          font-size: 1rem;
+          color: $primary-color;
+        }
+
+        textarea {
+          resize: vertical;
+        }
+
+        span {
+          color: red;
+          font-size: 12px;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: $btn-color;
+        color: $secondary-color;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-transform: uppercase;
+        font-weight: bold;
+
+        &:hover {
+          background-color: $btn-hover;
+        }
+      }
+    }
+  }
+}

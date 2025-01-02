@@ -1,0 +1,50 @@
+@import 'responsive.scss';
+
+// Variables
+$primary-color: #2c3e50;
+$secondary-color: #ecf0f1;
+
+.aboutPage {
+  padding: 1.5rem;
+  line-height: 1.6;
+
+  @include sm {
+    padding: 1.5rem 0.2rem;
+  }
+
+  .about {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    @include sm {
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: $primary-color;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      color: darken($primary-color, 10%);
+    }
+
+    p {
+      line-height: 1.8;
+
+      a {
+        color: lighten($primary-color, 10%);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
