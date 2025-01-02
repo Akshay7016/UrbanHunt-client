@@ -9,6 +9,7 @@ import { getDistance } from 'lib/getDistance';
 import { useAuthContext } from 'context/AuthContext';
 import { apiRequest } from 'lib/apiRequest';
 import { Spinner } from 'components/Spinner/Spinner';
+import { useSelectChat } from 'lib/selectChatStore';
 
 import './SinglePage.scss';
 
@@ -28,6 +29,7 @@ export const SinglePage = () => {
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
   const isSameUserWhoCreatedPost = post.userId === currentUser.id;
+  const setChatId = useSelectChat((state) => state.setSelectChat);
 
   const {
     images,
@@ -67,6 +69,23 @@ export const SinglePage = () => {
   const handleSendMessage = async () => {
     if (!currentUser) {
       return navigate('/login');
+    }
+
+    // check whether user has already chatted with receiver or not
+    const { data: chatData } = await apiRequest.post('/chats/verifyChat', {
+      receiverId: post.userId,
+    });
+
+    if (chatData) {
+      setChatId(chatData.id);
+      navigate('/profile');
+    } else {
+      // create new chat
+      const { data: newChat } = await apiRequest.post('/chats/', {
+        receiverId: post.userId,
+      });
+      setChatId(newChat.id);
+      navigate('/profile');
     }
   };
 

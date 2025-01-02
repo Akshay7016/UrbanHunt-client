@@ -7,16 +7,20 @@ import { useAuthContext } from 'context/AuthContext';
 import { apiRequest } from 'lib/apiRequest';
 import { useSocketContext } from 'context/SocketContext';
 import { useNotificationStore } from 'lib/notificationStore';
+import { useSelectChat } from 'lib/selectChatStore';
 
 import './Chat.scss';
 
 export const Chat = ({ chats }) => {
   const messageEndRef = useRef();
+  const chatRefs = useRef({});
   const [chat, setChat] = useState(null);
   const { currentUser } = useAuthContext();
   const { socket } = useSocketContext();
   const { register, handleSubmit, reset } = useForm();
   const decrease = useNotificationStore((state) => state.decrease);
+  const selectedChat = useSelectChat((state) => state.selectChat);
+  const setSelectedChat = useSelectChat((state) => state.setSelectChat);
 
   const handleOpenChat = async (chatId, receiver) => {
     try {
@@ -28,6 +32,11 @@ export const Chat = ({ chats }) => {
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
+  };
+
+  const handleCloseChatModal = () => {
+    setChat(null);
+    setSelectedChat(null);
   };
 
   const sendMessage = async ({ message = '' }) => {
@@ -79,6 +88,12 @@ export const Chat = ({ chats }) => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chat]);
 
+  useEffect(() => {
+    if (selectedChat && chatRefs.current[selectedChat]) {
+      chatRefs.current[selectedChat].click(); // Trigger a click on the matching div
+    }
+  }, [selectedChat]);
+
   return (
     <div className="chat">
       {!chat ? (
@@ -88,6 +103,7 @@ export const Chat = ({ chats }) => {
             <div
               className="message"
               key={userChat.id}
+              ref={(curr) => (chatRefs.current[userChat.id] = curr)}
               onClick={() => handleOpenChat(userChat.id, userChat.receiver)}
               style={{
                 backgroundColor: userChat?.seenBy?.includes(currentUser?.id)
@@ -114,7 +130,7 @@ export const Chat = ({ chats }) => {
               />
               <span>{chat?.receiver?.username}</span>
             </div>
-            <span className="close" onClick={() => setChat(null)}>
+            <span className="close" onClick={handleCloseChatModal}>
               X
             </span>
           </div>
