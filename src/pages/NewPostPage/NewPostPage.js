@@ -23,6 +23,11 @@ export const NewPostPage = () => {
   } = useForm();
 
   const addPost = async (data) => {
+    if (images.length !== 4) {
+      toast.error('You need to upload 4 images to proceed.');
+      return;
+    }
+
     const {
       title,
       price,
