@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import { useAuthContext } from 'context/AuthContext';
 import { useNotificationStore } from 'lib/notificationStore';
+import { apiRequest } from 'lib/apiRequest';
 
 import './navbar.scss';
 
 export const Navbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const { currentUser } = useAuthContext();
+  const { currentUser, updateUser } = useAuthContext();
   const fetch = useNotificationStore((state) => state.fetch);
   const notificationCount = useNotificationStore((state) => state.count);
 
@@ -19,6 +21,16 @@ export const Navbar = () => {
 
   const closeSideBar = () => {
     setOpen(false);
+  };
+
+  const handleLogout = async () => {
+    try {
+      navigate('/');
+      await apiRequest.post('/auth/logout');
+      updateUser(null);
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -85,6 +97,12 @@ export const Navbar = () => {
               <Link to="/register" onClick={closeSideBar}>
                 Sign up
               </Link>
+            </>
+          )}
+          {currentUser && (
+            <>
+              <Link to="/profile">Profile</Link>
+              <Link onClick={handleLogout}>Logout</Link>
             </>
           )}
         </div>
