@@ -17,6 +17,10 @@ export const Navbar = () => {
     fetch();
   }
 
+  const closeSideBar = () => {
+    setOpen(false);
+  };
+
   return (
     <nav>
       <div className="left">
@@ -61,14 +65,26 @@ export const Navbar = () => {
           />
         </div>
         <div className={open ? 'menu active' : 'menu'}>
-          <Link to="/">Home</Link>
-          <Link to="/">About</Link>
-          <Link to="/">Contact</Link>
-          <Link to="/">Agents</Link>
+          <Link to="/" onClick={closeSideBar}>
+            Home
+          </Link>
+          <Link to="/" onClick={closeSideBar}>
+            About
+          </Link>
+          <Link to="/" onClick={closeSideBar}>
+            Contact
+          </Link>
+          <Link to="/" onClick={closeSideBar}>
+            Agents
+          </Link>
           {!currentUser && (
             <>
-              <Link to="/login">Sign in</Link>
-              <Link to="/register">Sign up</Link>
+              <Link to="/login" onClick={closeSideBar}>
+                Sign in
+              </Link>
+              <Link to="/register" onClick={closeSideBar}>
+                Sign up
+              </Link>
             </>
           )}
         </div>
