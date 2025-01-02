@@ -23,7 +23,7 @@ export const ProfilePage = () => {
       await apiRequest.post('/auth/logout');
       updateUser(null);
     } catch (error) {
-      toast.toast.error(error?.response?.data?.message);
+      toast.error(error?.response?.data?.message);
     }
   };
 
