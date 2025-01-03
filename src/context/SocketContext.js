@@ -10,15 +10,15 @@ export const SocketContextProvider = ({ children }) => {
   const { currentUser } = useAuthContext();
 
   useEffect(() => {
-    const serverUrl = process.env.REACT_APP_SERVER_URL;
-    const socketConnection = io(serverUrl, {
-      withCredentials: true,
-    });
-    setSocket(socketConnection);
-
-    return () => {
-      socketConnection.disconnect(); // Clean up on component unmount
-    };
+    setSocket(io(process.env.REACT_APP_SERVER_URL, { withCredentials: true }));
+    // const serverUrl = process.env.REACT_APP_SERVER_URL;
+    // const socketConnection = io(serverUrl, {
+    //   withCredentials: true,
+    // });
+    // setSocket(socketConnection);
+    // return () => {
+    //   socketConnection.disconnect(); // Clean up on component unmount
+    // };
   }, []);
 
   useEffect(() => {
