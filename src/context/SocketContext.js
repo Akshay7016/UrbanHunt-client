@@ -10,7 +10,7 @@ export const SocketContextProvider = ({ children }) => {
   const { currentUser } = useAuthContext();
 
   useEffect(() => {
-    setSocket(io(process.env.REACT_APP_SERVER_URL));
+    setSocket(io(process.env.REACT_APP_SERVER_URL, { withCredentials: true }));
   }, []);
 
   useEffect(() => {
