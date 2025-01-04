@@ -338,8 +338,8 @@ export const NewPostPage = () => {
             folder: process.env.REACT_APP_CLOUDINARY_POSTS_FOLDER_NAME,
             multiple: true,
             maxFiles: 4,
-            // Allow max 500KB image size
-            maxImageFileSize: 512500,
+            // Allow max 300KB image size
+            maxImageFileSize: 308000,
             clientAllowedFormats: ['jpeg', 'jpg', 'png'],
           }}
           setState={setImages}
