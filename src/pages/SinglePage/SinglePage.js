@@ -28,7 +28,7 @@ export const SinglePage = () => {
   const [isLoading, setIsLoading] = useState({});
   const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
-  const isSameUserWhoCreatedPost = post.userId === currentUser.id;
+  const isSameUserWhoCreatedPost = post?.userId === currentUser?.id;
   const setChatId = useSelectChat((state) => state.setSelectChat);
 
   const {
