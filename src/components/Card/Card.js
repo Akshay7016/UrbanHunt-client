@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { format } from 'indian-number-format';
 
 import './Card.scss';
 
@@ -20,7 +21,7 @@ export const Card = ({
             {address}, {city}
           </span>
         </p>
-        <p className="price">Rs {price}</p>
+        <p className="price">Rs {format(price)}</p>
         <div className="bottom">
           <div className="features">
             <div className="feature">

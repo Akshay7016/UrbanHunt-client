@@ -1,5 +1,6 @@
 import { Marker, Popup } from 'react-leaflet';
 import { Link } from 'react-router-dom';
+import { format } from 'indian-number-format';
 import L from 'leaflet';
 import iconMarker from 'leaflet/dist/images/marker-icon.png';
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
@@ -24,7 +25,7 @@ export const Pin = ({
           <div className="textContainer">
             <Link to={`/${id}`}>{title}</Link>
             <span>{bedroom} bedroom</span>
-            <b>Rs {price}</b>
+            <b>Rs {format(price)}</b>
           </div>
         </div>
       </Popup>

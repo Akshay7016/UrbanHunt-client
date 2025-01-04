@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import toast from 'react-hot-toast';
+import { format } from 'indian-number-format';
 
 import { Slider } from 'components/Slider/Slider';
 import { Map } from 'components/Map/Map';
@@ -130,7 +131,7 @@ export const SinglePage = () => {
                     {address}, {city}
                   </span>
                 </div>
-                <div className="price">Rs {price}</div>
+                <div className="price">Rs {format(price)}</div>
               </div>
               <div className="user">
                 <img src={avatar ?? '/images/avatar.jpg'} alt="user-image" />
